@@ -42,7 +42,8 @@ node ('master') {
     stage('Packaging and Publishing results') {
         echo ("-> Packaging and Publishing results stage started.")
         sh ("tar -xzf meremin_dsl_script.tar.gz && cp build/libs/*.jar ./")
-        archiveArtifacts artifacts: 'gradle-simple.jar, Jenkinsfile, jobs.groovy', onlyIfSuccessful: true
+        sh ("tar -czvf pipeline-meremin-${BUILD_NUMBER}.tar.gz jobs.groovy Jenkinsfile gradle-simple.jar")
+        archiveArtifacts artifacts: 'pipeline-meremin-${BUILD_NUMBER}.tar.gz', onlyIfSuccessful: true
         echo ("-> Packaging and Publishing results stage finished.")
     }
 
